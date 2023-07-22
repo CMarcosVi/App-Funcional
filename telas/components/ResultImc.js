@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 
 export default function ResultImc(props){
     return(
-        <View>
+        <View style={styles.resultadoImc}>
             <Text style={styles.result}>{props.messageResultImc}</Text>
             <Text style={styles.resultCalc}>{props.ResultImc}</Text>
         </View>
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontWeight:'bold',
         textAlign:'center',
+    },
+    resultadoImc:{
+        height:100,
     }
 });
   

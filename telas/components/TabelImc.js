@@ -59,15 +59,23 @@ const styles = StyleSheet.create({
       flexDirection:'row',
     },
     tabelaImc:{
-      marginTop:40,
+      marginTop:0,
       textAlign:'center',
       color:'#0f4',
       fontWeight:'bold',
       fontSize:18,
     },
     imcInfo:{
-      width:'100%',
-      marginBottom:15,
+      width:'80%',
+      marginTop:10,
+      backgroundColor:'#000',
+      paddingBottom:15,
+      borderRadius:10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.4,
+      shadowRadius: 4,
+      elevation: 8,
     }
   });
   
