@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.titulo}> PROJECT IF v0.01</Text>
+        <Text style={styles.titulo}> PROJECT IF v0.015</Text>
       </View>
       <View style={styles.callnutri}>
           <Entypo name="lab-flask" size={24} color="#fff" />

@@ -10,7 +10,7 @@ import CosumoDiario from './components/ConsumoDiario';
 
 
 
-export default function CallNutricional(props) {
+export default function CallNutricional() {
   const [altura,setAltura] = useState(null)
   const [peso,setPeso] = useState(null)
   const [messageImc,setMessageImc] = useState('Preencha o peso e altura por favor')
@@ -19,10 +19,14 @@ export default function CallNutricional(props) {
   const [idade, setIdade] = useState(null)
   const [sexo,setSexo] = useState('Masculino')
   const [consumoDeKcal,setCosumoDeKcal] = useState('0000.00')
-  const [agua,setAgua] = useState(null)
-  const [carboidrato,setCarboidrato] = useState(null)
-  const [proteina,setProteina] = useState(null)
-  const [gordura,setGordura] = useState(null)
+  const [aguaMin,setAguaMin] = useState('0000.00')
+  const [aguaMax,setAguaMax] = useState('0000.00')
+  const [carboidratoMin,setCarboidratoMin] = useState('0000.00')
+  const [carboidratoMax,setCarboidratoMax] = useState('0000.00')
+  const [proteinaMin,setProteinaMin] = useState('0000.00')
+  const [proteinaMax,setProteinaMax] = useState('0000.00')
+  const [gorduraMin,setGorduraMin] = useState('0000.00')
+  const [gorduraMax,setGorduraMax] = useState('0000.00')
 
   function imcCalculator() {
     if (!altura || !peso || isNaN(altura) || isNaN(peso) || altura <= 0 || peso <= 0) {
@@ -30,7 +34,62 @@ export default function CallNutricional(props) {
     }
     return (peso / (altura * altura)).toFixed(2);
   }
-
+  function aguaDiariaMin(){
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    }else{
+      return (peso*35).toFixed(2);
+    }
+  }
+  function aguaDiariaMax(){
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    }else{
+      return (peso*45).toFixed(2);
+    }
+  }
+  function carboDiarioMin(){
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    }else{
+      return (peso* 3).toFixed(2);
+    }
+  }
+  function carboDiarioMax(){
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    }else{
+      return (peso* 10).toFixed(2);
+    }
+  }
+  function protDiariaMin() {
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    } else {
+      return (peso * 1).toFixed(2);
+    }
+  }
+  function protDiariaMax() {
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    } else {
+      return (peso * 2).toFixed(2);
+    }
+  }
+  function gordDiariaMin(){
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    }else{
+      return (peso*0.25).toFixed(2);;
+    }
+  }  
+  function gordDiariaMax(){
+    if (!peso || isNaN(peso) || peso <= 0) {
+      return null;
+    }else{
+      return (peso*0.4).toFixed(2);;
+    }
+  }  
   function calculoDeNutrientes() {
     if (sexo === 'Masculino') {
       if (idade >= 3 && idade <= 10) {
@@ -63,13 +122,29 @@ export default function CallNutricional(props) {
   function validacaoImc() {
     const calculatedImc = imcCalculator();
     const consumoDeKcalDiario = calculoDeNutrientes();
+    const aguaMin = aguaDiariaMin();
+    const aguaMax = aguaDiariaMax();
+    const carboidratoMin = carboDiarioMin();
+    const carboidratoMax = carboDiarioMax();
+    const proteinaMin = protDiariaMin();
+    const proteinaMax = protDiariaMax();
+    const gorduraMin = gordDiariaMin();
+    const gorduraMax = gordDiariaMax();
     if (calculatedImc !== null || consumoDeKcalDiario !== null ) {
       setImc(calculatedImc);
-      setCosumoDeKcal(consumoDeKcalDiario)
+      setCosumoDeKcal(consumoDeKcalDiario);
       setPeso('');
       setAltura('');
       setIdade('');
       setSexo('');
+      setAguaMin(aguaMin);
+      setAguaMax(aguaMax);
+      setCarboidratoMin(carboidratoMin);
+      setCarboidratoMax(carboidratoMax);
+      setProteinaMin(proteinaMin);
+      setProteinaMax(proteinaMax);
+      setGorduraMax(gorduraMax);
+      setGorduraMin(gorduraMin);
       setMessageImc('Seu IMC é de:');
       setTextButton('Calcular novamente');
     } else {
@@ -140,8 +215,24 @@ export default function CallNutricional(props) {
             <Text style={styles.consumoKcal}>{consumoDeKcal} Kcal</Text>
           </View> 
         </View>
-        <View>
+        <View style={styles.listaMacro}>
           <Text style={styles.macroNutrientes}>Cosumo diario de Macro Nutrientes</Text>
+          <View>
+            <Text style={styles.consumo}>Consumo de água diario</Text>
+            <Text style={styles.quantidade}>Minino seria <Text style={{ color: '#0f4' }}>{aguaMin}ML</Text> {'\n'} Se praticantes de esportes, em torno de <Text style={{ color: '#0f4' }}>{aguaMax}ML</Text></Text>
+          </View>
+          <View>
+            <Text style={styles.consumo}>Consumo de carboidrato diario</Text>
+            <Text style={styles.quantidade}>Minino seria <Text style={{ color: '#0f4' }}>{carboidratoMin}g</Text> {'\n'} Se praticantes de esportes, em torno de <Text style={{ color: '#0f4' }}>{carboidratoMax}g</Text></Text>
+          </View>
+          <View>
+            <Text style={styles.consumo}>Consumo de Proteina diaria</Text>
+            <Text style={styles.quantidade}>Minino sugerido seria de <Text style={{ color: '#0f4' }}>{proteinaMin}g</Text> {'\n'} Se praticantes de esportes, em torno de <Text style={{ color: '#0f4' }}>{proteinaMax}g</Text></Text>
+          </View>
+          <View>
+            <Text style={styles.consumo}>Consumo de gordura diario</Text>
+            <Text style={styles.quantidade}>Minino sugerido seria de <Text style={{ color: '#0f4' }}>{gorduraMin}g</Text> {'\n'} Se praticantes de esportes, em torno de <Text style={{ color: '#0f4' }}>{gorduraMax}g</Text></Text>
+          </View>
         </View>
       </View>
       <StatusBar style="auto" />
@@ -231,9 +322,40 @@ const styles = StyleSheet.create({
     border:'none',
     padding:5,
   },
+  listaMacro:{
+    marginTop:10,
+    marginBottom:50,
+    backgroundColor:'#000',
+    paddingBottom:15,
+    borderRadius:10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 4,
+    elevation: 8,
+  },
   macroNutrientes:{
     color:'#0f4',
     fontSize:20,
+    marginTop:30,
+    marginBottom:30,
+    marginLeft:15,
+    marginRight:15,
     fontWeight:'bold',
+    textAlign:'center',
   },
+  consumo:{
+   color:'#0f4',
+   fontSize:16,
+   fontWeight:'bold',
+   textAlign:'center',
+   marginTop:30,
+  },
+  quantidade:{
+    color:'#fff',
+    textAlign:'center',
+    fontWeight:'600',
+    marginBottom:30,
+
+  }
 });
